@@ -10,7 +10,7 @@ before_script:
   - composer install --no-interaction
 
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit -c phpunit_travis.xml
 
 services:
   - mysql
