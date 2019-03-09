@@ -8,8 +8,6 @@ before_script:
   - mysql -e 'create database test_db;'
   - composer self-update
   - composer install --no-interaction
-  - php artisan key:generate
-  - php artisan migrate
 
 script:
   - vendor/bin/phpunit
