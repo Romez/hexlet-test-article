@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 7.3
+
+before_script:
+  - mkdir bootstrap/cache
+  - mkdir storage
+  - mkdir storage/app
+  - mkdir storage/framework
+  - mkdir storage/framework/sessions
+  - mkdir storage/framework/cache
+  - mkdir storage/framework/views
+  - chmod 777 -R storage
+  - cp .env.testing .env
+  - mysql -e 'create database test_db;'
+  - composer self-update
+  - composer install --no-interaction
+  - php artisan key:generate
+
+script:
+  - vendor/bin/phpunit
