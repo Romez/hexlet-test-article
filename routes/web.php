@@ -19,14 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/create/article', 'ArticleController@create')->name('article.create');
-
-Route::post('/create/article','ArticleController@store')->name('article.store');
-
-Route::get('/articles', 'ArticleController@index')->name('articles');
-
-Route::get('/edit/article/{id}','ArticleController@edit')->name('article.edit');
-
-Route::patch('/edit/article/{id}','ArticleController@update')->name('article.update');
-
-Route::delete('/delete/article/{id}','ArticleController@destroy')->name('article.destroy');
+Route::resource('articles', 'ArticleController');

@@ -9,8 +9,8 @@
         @endif
 
         <div class="row">
-            <a href="{{route('article.create')}}" class="btn btn-success">Create Article</a>
-            <a href="{{route('articles')}}" class="btn btn-default">All Articles</a>
+            <a href="{{route('articles.create')}}" class="btn btn-success">Create Article</a>
+            <a href="{{route('articles.index')}}" class="btn btn-default">All Articles</a>
         </div>
     </div>
 @endsection

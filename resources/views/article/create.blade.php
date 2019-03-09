@@ -12,7 +12,7 @@
             </div><br />
         @endif
         <div class="row">
-            <form method="post" action="{{route('article.create')}}">
+            <form method="post" action="{{route('articles.store')}}">
                 <div class="form-group">
                     {{csrf_field()}}
                     <label for="title">Article Name:</label>

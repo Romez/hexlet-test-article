@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use App\Article;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,7 +20,7 @@ class ArticleControllerTest extends TestCase
             'body' => $this->faker->paragraph()
         ];
 
-        $this->post(route('article.store'), $requestBody);
+        $this->post(route('articles.store'), $requestBody);
 
         $this->assertDatabaseHas('articles', $requestBody);
     }
@@ -29,7 +28,7 @@ class ArticleControllerTest extends TestCase
     public function testReadArticle() {
         factory(Article::class, 10)->create();
 
-        $articles = $this->get(route('articles'))->viewData('articles');
+        $articles = $this->get(route('articles.index'))->viewData('articles');
 
         $this->assertCount(10, $articles);
     }
@@ -43,7 +42,7 @@ class ArticleControllerTest extends TestCase
             'body' => $this->faker->paragraph()
         ];
 
-        $this->patch(route('article.update', ['id' => $articleId]), $requestBody);
+        $this->patch(route('articles.update', ['id' => $articleId]), $requestBody);
 
         $expectedData = array_merge($requestBody, ['id' => $articleId]);
 
@@ -54,7 +53,7 @@ class ArticleControllerTest extends TestCase
         $article = factory(Article::class)->create();
         $articleId = $article->id;
 
-        $this->delete(route('article.destroy', ['id' => $articleId]));
+        $this->delete(route('articles.destroy', ['id' => $articleId]));
 
         $this->assertDatabaseMissing('articles', [
             'id' => $articleId
