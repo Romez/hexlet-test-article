@@ -14,7 +14,7 @@
         <div class="row">
             <form method="post" action="{{route('article.create')}}">
                 <div class="form-group">
-                    <input type="hidden" value="{{csrf_token()}}" name="_token" />
+                    {{csrf_field()}}
                     <label for="title">Article Name:</label>
                     <input type="text" class="form-control" name="name"/>
                 </div>

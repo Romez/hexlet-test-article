@@ -16,8 +16,8 @@ class ArticleController extends Controller
     {
         $article = new Article();
         $data = $this->validate($request, [
-            'body'=>'required',
-            'name'=> 'required'
+            'body' => 'required',
+            'name' => 'required'
         ]);
 
         $article->saveTicket($data);
@@ -28,7 +28,7 @@ class ArticleController extends Controller
     {
         $articles = Article::get();
 
-        return view('article.index',compact('articles'));
+        return view('article.index', compact('articles'));
     }
 
     public function edit($id)
@@ -42,8 +42,8 @@ class ArticleController extends Controller
     {
         $article = new Article();
         $data = $this->validate($request, [
-            'body'=>'required',
-            'name'=> 'required'
+            'body' => 'required',
+            'name' => 'required'
         ]);
         $data['id'] = $id;
         $article->updateTicket($data);
