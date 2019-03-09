@@ -28,9 +28,7 @@ class ArticleControllerTest extends TestCase
     public function testReadArticle() {
         factory(Article::class, 10)->create();
 
-        $articles = $this->get(route('articles.index'))->viewData('articles');
-
-        $this->assertCount(10, $articles);
+        $this->get(route('articles.index'))->assertStatus(200);
     }
 
     public function testUpdateArticle() {
@@ -44,9 +42,10 @@ class ArticleControllerTest extends TestCase
 
         $this->patch(route('articles.update', ['id' => $articleId]), $requestBody);
 
-        $expectedData = array_merge($requestBody, ['id' => $articleId]);
+        $article->refresh();
 
-        $this->assertDatabaseHas('articles', $expectedData);
+        $this->assertEquals($requestBody['name'], $article->name);
+        $this->assertEquals($requestBody['body'], $article->body);
     }
 
     public function testDeleteArticle() {
@@ -55,8 +54,6 @@ class ArticleControllerTest extends TestCase
 
         $this->delete(route('articles.destroy', ['id' => $articleId]));
 
-        $this->assertDatabaseMissing('articles', [
-            'id' => $articleId
-        ]);
+        $this->assertFalse(Article::where('id', $articleId)->exists());
     }
 }
