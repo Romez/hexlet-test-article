@@ -9,18 +9,28 @@
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
-            </div><br />
+            </div><br/>
         @endif
         <div class="row">
             <form method="post" action="{{route('articles.store')}}">
                 <div class="form-group">
                     {{csrf_field()}}
-                    <label for="title">Article Name:</label>
-                    <input type="text" class="form-control" name="name"/>
+                    <label>
+                        Article Name:
+                        <input type="text" class="form-control" name="name"/>
+                    </label>
                 </div>
                 <div class="form-group">
-                    <label for="description">Article Body:</label>
-                    <textarea cols="5" rows="5" class="form-control" name="body"></textarea>
+                    <label>
+                        Image URI
+                        <input type="text" class="form-control" name="image"/>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>
+                        Article Body:
+                        <textarea cols="19" rows="5" class="form-control" name="body"></textarea>
+                    </label>
                 </div>
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>

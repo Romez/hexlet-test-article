@@ -9,8 +9,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 
 class ArticleControllerTest extends TestCase
 {
-    use RefreshDatabase;
     use DatabaseMigrations;
+    use RefreshDatabase;
     use WithFaker;
 
     public function testCreateArticle()
