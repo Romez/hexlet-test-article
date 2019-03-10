@@ -3,25 +3,35 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Statable;
 
 class Article extends Model
 {
-    protected $fillable = ['body', 'name'];
+    use Statable;
 
-    public function saveTicket($data)
+    const SM_CONFIG = 'article';
+
+    protected $fillable = ['body', 'name', 'image'];
+
+    public function updateArticle($data)
     {
-        $this->name = $data['name'];
-        $this->body = $data['body'];
-        $this->save();
+        $article = $this->find($data['id']);
+        $article->name = $data['name'];
+        $article->body = $data['body'];
+        $article->image = $data['image'];
+
+        $article->save();
+
         return true;
     }
 
-    public function updateTicket($data)
-    {
-        $artivle = $this->find($data['id']);
-        $artivle->name = $data['name'];
-        $artivle->body = $data['body'];
-        $artivle->save();
-        return true;
+    public function setImageAttribute($image = null) {
+        $this->image = $image;
+
+        if (is_null($image)) {
+            $this->state = 'img_default';
+        } else {
+            $this->state = 'img_not_saved';
+        }
     }
 }

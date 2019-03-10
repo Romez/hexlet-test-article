@@ -15,14 +15,16 @@ class ArticleControllerTest extends TestCase
 
     public function testCreateArticle()
     {
-        $requestBody = [
-            'name' => $this->faker->sentence(),
-            'body' => $this->faker->paragraph()
-        ];
+        $name = $this->faker->sentence();
+        $body = $this->faker->paragraph();
+        $image = $this->faker->imageUrl();
 
-        $this->post(route('articles.store'), $requestBody);
+        $requestBody = compact('name', 'body', 'image');
 
-        $this->assertDatabaseHas('articles', $requestBody);
+        $this->post(route('articles.store'), $requestBody)->assertStatus(302);
+
+        $article = Article::where('name', $requestBody['name'])->first();
+        $this->assertEquals($body, $article->body);
     }
 
     public function testReadArticle() {

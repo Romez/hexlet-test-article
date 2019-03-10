@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Services\ArticleServiceInterface;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    /**
+     * @var ArticleServiceInterface
+     */
+    private $articleService;
+
+    public function __construct(ArticleServiceInterface $articleService)
+    {
+        $this->articleService = $articleService;
+    }
+
     public function create()
     {
         return view('article.create');
@@ -14,13 +25,14 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        $article = new Article();
         $data = $this->validate($request, [
             'body' => 'required',
-            'name' => 'required'
+            'name' => 'required',
+            'image' => 'required'
         ]);
 
-        $article->saveTicket($data);
+        $this->articleService->createArticle($data);
+
         return redirect('/')->with('success', 'New support article has been created!');
     }
 
@@ -46,7 +58,7 @@ class ArticleController extends Controller
             'name' => 'required'
         ]);
         $data['id'] = $id;
-        $article->updateTicket($data);
+        $article->updateArticle($data);
 
         return redirect('/')->with('success', 'New support article has been updated!!');
     }
